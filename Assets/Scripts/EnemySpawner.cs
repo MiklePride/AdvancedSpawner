@@ -3,15 +3,14 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [SerializeField] private Enemy _enemyTemplate;
     [SerializeField]private SpawnPoint[] _enemySpawnPoints;
+    [SerializeField] private Transform[] _players;
 
     private float _pauseDuration = 2f;
-    private Coroutine _spawnCoroutine;
 
     private void Start()
     {
-        _spawnCoroutine = StartCoroutine(InitializeSpawn());
+        StartCoroutine(InitializeSpawn());
     }
 
     private IEnumerator InitializeSpawn()
@@ -20,7 +19,9 @@ public class EnemySpawner : MonoBehaviour
 
         while (true)
         {
-            _enemySpawnPoints[GetRandomIndex(_enemySpawnPoints)].InitializeSpawn();
+            int index = GetRandomIndex(_enemySpawnPoints);
+            var enemy = _enemySpawnPoints[index].InitializeSpawn();
+            enemy.GetTargetPoint(_players[index]);
 
             yield return twoSeconds;
         }

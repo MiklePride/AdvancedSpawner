@@ -31,7 +31,7 @@ public class Player : MonoBehaviour
     {
         if (transform.position == _targetPoint.position)
         {
-            NextTargetPoint();
+            PassNextTargetPoint();
         }
     }
 
@@ -45,7 +45,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void NextTargetPoint()
+    private void PassNextTargetPoint()
     {
         _indexPoint++;
 
